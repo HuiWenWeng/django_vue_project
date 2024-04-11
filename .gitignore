@@ -1,3 +1,5 @@
 secrets.json
 pyenv/
 nodeenv/
+
+__pycache__/
