@@ -1,5 +1,6 @@
-__pycache__/
-
 secrets.json
 pyenv/
 nodeenv/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
