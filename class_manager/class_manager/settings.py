@@ -155,7 +155,7 @@ GRAPH_MODELS = {
 }
 
 
-LOGIN_REDIRECT_URL = "/movies/movies/"
+LOGIN_REDIRECT_URL = "/manager"
 LOGOUT_REDIRECT_URL = "/"
 
 DJANGO_VITE_ASSETS_PATH = os.path.join(BASE_DIR, "core", "static", "vite")
