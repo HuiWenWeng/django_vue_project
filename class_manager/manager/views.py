@@ -35,7 +35,7 @@ class CourseCreateView(CreateView):
             'Course "{course_name}" has been created'.format(
                 course_name=self.object.name))
         return response
-
+#calvin2016HW!
     # comment the following line to show the error about not having an
     # success_url
     def get_success_url(self):
