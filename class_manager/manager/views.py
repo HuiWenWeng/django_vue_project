@@ -15,7 +15,7 @@ from django.http import HttpResponse, JsonResponse
 
 # Create your views here.
 
-### Course
+### Course ###
 class CourseListView(LoginRequiredMixin, ListView):
     model = Course
 
@@ -23,7 +23,7 @@ class CourseListView(LoginRequiredMixin, ListView):
 class CourseDetailView(DetailView):
     model = Course
     
-### Student
+### Student ### 
 class StudentListView(LoginRequiredMixin, ListView):
     model = Student
 
