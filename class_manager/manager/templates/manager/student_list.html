@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+<a href="{% url 'manager:course_list' %}">Courses</a><br>
+This is the student list page
+
+{% for student in student_list %}
+    <a href="{% url 'manager:student_detail' student.id %}">{{ student.name }}</a>
+{% endfor %}
+
+{% endblock content %}
