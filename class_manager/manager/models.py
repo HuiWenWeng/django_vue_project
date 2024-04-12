@@ -17,9 +17,9 @@ class Course(models.Model):
 
 class Student(models.Model):
     name = models.CharField(max_length=50, unique=True)
-    osis = models.IntegerField(max_length=9, unique=True)
+    osis = models.IntegerField(unique=True)
     course = models.ManyToManyField(Course)
-    grade = models.SmallIntegerField(max_length=12, unique=True)
+    grade = models.SmallIntegerField(unique=True)
     gpa = models.FloatField()
 
     class Meta:

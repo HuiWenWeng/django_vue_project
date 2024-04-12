@@ -3,3 +3,6 @@
 
 04/11 - Hui Wen: Authentication completed, begin writing model
 04/11 - Calvin: Database design, created branch, begin connecting Vue to Django
+
+04/12 - Hui Wen: List view on the Django side is functional, working on display Detail from Vue's side
+04/12 - Calvin: Worked on displaying form from Vue

@@ -17,7 +17,7 @@ from .forms import CourseForm
 
 # Create your views here.
 
-### Course
+### Course ###
 class CourseListView(LoginRequiredMixin, ListView):
     model = Course
 
