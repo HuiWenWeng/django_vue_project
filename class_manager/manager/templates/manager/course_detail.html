@@ -2,10 +2,22 @@
 {% load django_vite %}
 {% block content %}
 
+<a href="{% url 'manager:student_list' %}">Students</a>
+<a href="{% url 'manager:student_create' %}">Add Student</a><br>
+<a href="{% url 'manager:course_list' %}">Courses</a>
+<a href="{% url 'manager:course_create' %}">Add Course</a><br>
+<a href="{% url 'manager:course_delete' object.id %}">Delete Course</a><br />
+<a href="{% url 'manager:course_update' object.id %}">Update Course</a><br />
+
     <div id="app">
         <app>This is the course detail page</app>
     </div>
 
+    <h1>{{ object.name }}</h1>
+    Students:<br />
+    {% for student in object.students.all %} {{student.name}}<br />
+    {% endfor %}
+    Teacher: {{object.teacher}}<br />
 {% endblock content %}
 {% block js %}
 {{ block.super }}

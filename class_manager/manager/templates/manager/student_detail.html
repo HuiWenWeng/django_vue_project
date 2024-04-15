@@ -2,22 +2,26 @@
 {% load django_vite %}
 {% block content %}
 
+<a href="{% url 'manager:student_list' %}">Students</a>
+<a href="{% url 'manager:student_create' %}">Add Student</a><br>
+<a href="{% url 'manager:course_list' %}">Courses</a>
+<a href="{% url 'manager:course_create' %}">Add Course</a><br>
+<a href="{% url 'manager:student_delete' object.id %}">Delete Student</a><br />
+<a href="{% url 'manager:student_update' object.id %}">Update Student</a><br />
+
     <div id="app">
         <app>This is the student detail page</app>
     </div>
+
+    <h1>{{ object.name }}</h1>
+    OSIS: {{object.osis}}<br />
+    Grade: {{object.grade}}<br />
+    GPA: {{object.gpa}}<br />
 
 {% endblock content %}
 {% block js %}
 {{ block.super }}
     <script>
-        {% comment %} 
-        Where the variables will go
-        var ext_movie_id = {{ movie_id }}
-        var ext_movie_detail_js_url = '{% url 'movies:movie_detail_js' movie_id %}'
-        var ext_movie_list_url = '{% url 'movies:movie_list' movie_id %}' 
-        var ext_movie_update_url = '{% url 'movies:movie_update_bis' movie_id %}'
-        var ext_movie_delete_url = '{% url 'movies:movie_delete' movie_id %}' 
-        {% endcomment %}
     </script>
 {% vite_asset 'src/apps/movie_show/movie_show.js' %}
 {% endblock js %}

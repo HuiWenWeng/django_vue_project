@@ -1,6 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}
+
+<a href="{% url 'manager:student_list' %}">Students</a>
+<a href="{% url 'manager:student_create' %}">Add Student</a><br>
+<a href="{% url 'manager:course_list' %}">Courses</a>
+<a href="{% url 'manager:course_create' %}">Add Course</a><br>
+
 <form method="post">{% csrf_token %}
     {{ form.as_p }}
     <input type="submit" value="Save">
