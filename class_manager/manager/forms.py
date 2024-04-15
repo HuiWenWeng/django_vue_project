@@ -5,7 +5,7 @@ from .models import Course
 class CourseForm(forms.ModelForm):
     class Meta:
         model = Course
-        fields = ['name', 'teacher', 'students']
+        fields = ['name', 'teacher', 'grade', 'students']
         widgets = {
         }
         

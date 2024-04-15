@@ -18,6 +18,7 @@ class Student(models.Model):
 class Course(models.Model):
     name = models.CharField(max_length=200, unique=True)
     teacher = models.CharField(max_length=200, unique=False)
+    grade = models.SmallIntegerField(unique=False)
     students = models.ManyToManyField(Student)
     
     class Meta:
