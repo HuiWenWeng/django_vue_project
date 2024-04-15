@@ -1,11 +1,16 @@
 {% extends "base.html" %}
 
 {% block content %}
-<a href="{% url 'manager:course_list' %}">Courses</a><br>
-This is the student list page
+
+<a href="{% url 'manager:student_list' %}">Students</a>
+<a href="{% url 'manager:student_create' %}">Add Student</a><br>
+<a href="{% url 'manager:course_list' %}">Courses</a>
+<a href="{% url 'manager:course_create' %}">Add Course</a><br>
+
+This is the student list page <br />
 
 {% for student in student_list %}
-    <a href="{% url 'manager:student_detail' student.id %}">{{ student.name }}</a>
+    <a href="{% url 'manager:student_detail' student.id %}">{{ student.name }}</a><br />
 {% endfor %}
 
 {% endblock content %}
