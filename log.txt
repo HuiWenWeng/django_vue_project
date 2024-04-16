@@ -9,4 +9,6 @@
 
 04/14 - Hui Wen: Updated forms, updated urls on each page for easy navigation (not pushed)
 
-04/15 - Hui Wen: Finished details, delete, and update views on the Django side, fixed model errors
+04/15 - Hui Wen: Finished details, delete, and update views on the Django side, fixed model errors, successfully connected Vue to Django in student edit working on student_edit from Vue
+
+04/16 - Hui Wen: Setup Vue student and course detail pages, working on Vue GET/POST forms

@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% load django_vite %}
+
 {% block content %}
 
 <a href="{% url 'manager:student_list' %}">Students</a>
@@ -7,8 +9,29 @@
 <a href="{% url 'manager:course_list' %}">Courses</a>
 <a href="{% url 'manager:course_create' %}">Add Course</a><br>
 
-<form method="post">{% csrf_token %}
+<br />
+<div id="app">
+    <app></app>
+</div>
+
+{% comment %} <form method="post">{% csrf_token %}
     {{ form.as_p }}
     <input type="submit" value="Save">
-</form>
+</form> {% endcomment %}
+
 {% endblock content %}
+
+{% block js %}
+    {{ block.super }} 
+    <script>
+        var ext_csrf_token = '{{ csrf_token }}'
+        var ext_django_form = `{{ form.as_p | safe }}`
+        var ext_student_list {{ student_list | safe }} 
+        var ext_student_name {{ student_name | safe }} 
+        var ext_student_osis {{ student_osis | safe }} 
+        var ext_student_grade {{ student_grade | safe }} 
+        var ext_student_gpa {{ student_gpa | safe }} 
+    </script>
+    {% vite_hmr_client %}
+    {% vite_asset 'src/apps/student_edit/student_edit.js' %} 
+{% endblock js %}
