@@ -114,5 +114,16 @@ class StudentUpdateView(UpdateView):
                 student_name=self.object.name))
         return response
     
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        student_dico = model_to_dict(self.object)
+        context["student_list"] = student_dico
+        context["student_name"] = student_dico["name"]
+        context["student_osis"] = student_dico["osis"]
+        context["student_grade"] = student_dico["grade"]
+        context["student_gpa"] = student_dico["gpa"]
+        print("context", context)
+        return context
+    
     def get_success_url(self):
         return reverse_lazy("manager:student_detail", args=[self.object.id])
