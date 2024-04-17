@@ -28,6 +28,7 @@
         },
         methods: {
             get_student_info() {
+                // console.log("get_student working")
                 fetch(this.student_detail_js_url,
                     {
                         method: "get",
@@ -35,19 +36,23 @@
                     }
                 ).then(function(response) {
                     console.log('response', response)
-                    return response.json()}).then(this.assign_student).catch(
-                        (error) => { 
-                        console.log('error', error)
-                        this.student_error=["Error when loading student information"]
+                    return response.json()}
+                ).then((student_json) => {
+                    this.assign_student(student_json)}
+                ).catch(
+                    (error) => { 
+                    console.log('error', error)
+                    this.student_error=["Error when loading student information"]
                 })
             },
             assign_student(student_json) {
+                console.log("assign student is working too")
                 console.log('json', student_json)
                 this.student = student_json['student']
             },
-            beforeMount() {
-                this.get_student_info()
-            },
         }, 
+        beforeMount() {
+            this.get_student_info()
+        },
     }
 </script>

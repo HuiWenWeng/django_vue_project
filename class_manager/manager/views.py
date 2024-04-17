@@ -161,4 +161,4 @@ class StudentDetailJsView(View):
     def get(self, request, *args, **kwargs):
         student = get_object_or_404(Student, pk=self.kwargs["pk"])
         student_js = model_to_dict(student)
-        return JsonResponse({"manager": student_js})
+        return JsonResponse({"student": student_js})

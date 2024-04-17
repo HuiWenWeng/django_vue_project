@@ -14,4 +14,4 @@
 04/16 - Hui Wen: Setup Vue student and course detail pages, working on Vue GET/POST forms
         (At night): Finished student POST, working on student GET, create view no longer working
 
-04/17 - Hui Wen: Worked on student GET, display not working yet
+04/17 - Hui Wen: Debugging on student GET, working now
