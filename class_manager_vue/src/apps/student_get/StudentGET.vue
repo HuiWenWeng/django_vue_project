@@ -28,7 +28,6 @@
         },
         methods: {
             get_student_info() {
-                // console.log("get_student working")
                 fetch(this.student_detail_js_url,
                     {
                         method: "get",

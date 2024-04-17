@@ -35,6 +35,7 @@ class CourseCreateView(CreateView):
             'Course "{course_name}" has been created'.format(
                 course_name=self.object.name))
         return response
+    
     def get_success_url(self):
         return reverse_lazy("manager:course_detail", args=[self.object.id])
         
@@ -117,6 +118,13 @@ class StudentCreateView(CreateView):
             'Student "{student_name}" has been created'.format(
                 student_name=self.object.name))
         return response
+    
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     student_dico = model_to_dict(self.object)
+    #     context["student_dico"] = student_dico
+    #     # print("context", context)
+    #     return context
 
     def get_success_url(self):
     	return reverse_lazy("manager:student_detail", args=[self.object.id])
@@ -157,15 +165,15 @@ class StudentUpdateView(UpdateView):
         return reverse_lazy("manager:student_detail", args=[self.object.id])
     
 class StudentUpdatebisView(View):
-   def post(self, request, *args, **kwargs):
-       student = get_object_or_404(Student, pk=self.kwargs["pk"])
-       # Create a form instance with POST data
-       form = StudentForm(request.POST, instance=student)
-       if form.is_valid():
-           form.save()
-           return JsonResponse({"success": True})
-       else:
-           return JsonResponse({"success": False, "errors": form.errors})
+    def post(self, request, *args, **kwargs):
+        student = get_object_or_404(Student, pk=self.kwargs["pk"])
+        # Create a form instance with POST data
+        form = StudentForm(request.POST, instance=student)
+        if form.is_valid():
+            form.save()
+            return JsonResponse({"success": True})
+        else:
+            return JsonResponse({"success": False, "errors": form.errors})
 
 class StudentDetailbisView(TemplateView):
     template_name = "manager/student_detailbis.html"
@@ -178,7 +186,6 @@ class StudentDetailbisView(TemplateView):
         context = super().get_context_data(**kwargs)
         context['student_id'] = self.kwargs["pk"]
         return context
-    
     
 class StudentDetailJsView(View):
     def get(self, request, *args, **kwargs):
