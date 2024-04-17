@@ -1,6 +1,18 @@
 <template>
   <div>This is the course form coming from django, displayed in vue. <br /><br /></div>
   <div>
+    With fetch this time
+    <div v-if="form_error">
+        <ul>
+            <li v-for="(error, index) in form_error">
+                {{error}}
+            </li>
+        </ul>
+    </div>
+    <div v-if="form_updated">
+        {{ form_updated }}
+    </div>
+
     <form method="post" class="form">
       <input type="hidden" name="csrfmiddlewaretoken" v-bind:value="csrf_token" />
       <p>
@@ -19,7 +31,7 @@
           id="id_teacher"
         />
         <br /><br />
-        <label for="id_name">Grade:</label>
+        <label for="id_grade">Grade:</label>
         <br />
         <input type="text" name="grade" value="100" maxlength="100" required="" id="id_grade" />
       </p>
@@ -58,7 +70,7 @@
     >
       Submit
     </button>
-  </div>student
+  </div>
 </template>
 
 <script>
@@ -70,33 +82,44 @@ export default {
   },
   data: function () {
     return {
-      // submitting_form: false,
+      submitting_form: false,
       form_error: [],
       form_updated: '',
-      submitting_form: false,
       csrf_token: window.ext_csrf_token,
       form: window.ext_django_form,
-      course_dico: window.ext_course_dico,
-      course_name: window.ext_voutdr_dico.name,
-      course_teacher: window.ext_course_dico.teacher,
-      update_bis_url: window.ext_update_bis_url
+      course_dico: window.ext_course_dict,
+      update_bis_url: window.ext_update_bis_url,
+      // student_list: window.ext_course_dict.students,
+      // student_list_source: window.ext_student_list,
+      // course_dico: window.ext_course_dico,
+      // course_name: window.ext_course_dico.name,
+      // course_teacher: window.ext_course_dico.teacher,
+      // course_grade: window.ext_course_dico.grade,
+
     }
   },
   methods: {
     submit_form() {
+      if (!this.course_dico) {
+    console.error('Course data is not available.');
+    return;
+  }
       let formData = new FormData()
       if (this.submitting_form === true) {
+        console.error('Form is already submitting.');
         return
       }
       this.submitting_form = true
       var form = document.createElement('form')
       form.setAttribute('method', 'post')
       let form_data = {
-        csrfmiddlewaretoken: this.csrf_token,
-        name: this.course_dico.name,
-        teacher: this.course_dico.teacher,
-        grade: this.course_dico.grade
+        'csrfmiddlewaretoken': this.csrf_token,
+        'name': this.course_dico.name,
+        'teacher': this.course_dico.teacher,
+        'grade': this.course_dico.grade
       }
+      console.log('student_list', this.student_list)
+      console.log('form_data', form_data)
       for (var key in form_data) {
         var html_field = document.createElement('input')
         html_field.setAttribute('type', 'hidden')
@@ -105,6 +128,26 @@ export default {
         form.appendChild(html_field)
         formData.append(key, form_data[key])
       }
+      var student_field = document.createElement('select')
+      student_field.setAttribute('name', 'students')
+      student_field.setAttribute('id', 'id_students')
+      student_field.setAttribute('multiple', '')
+      for (var student of this.student_list) {
+        console.log('student', student)
+        var option_field = document.createElement('option')
+        option_field.setAttribute('value', student.id)
+        option_field.setAttribute('selected', '')
+        student_field.appendChild(option_field)
+      }
+      form.appendChild(student_field)
+      document.body.appendChild(form)
+      form.submit()
+      fetch(this.update_bis_url, {
+        method: 'post',
+        body: formData,
+        headers: { 'X-CSRFToken': this.csrf_token },
+        credentials: 'same-origin'
+      })
     },
     submit_form_fetch() {
       this.form_error = []

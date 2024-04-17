@@ -6,8 +6,8 @@
   <h1>{{ this.course.name }}</h1>
   Teacher: {{ this.course.teacher }}<br />
   Grade Level: {{ this.course.grade }}<br />
-  <!-- Students:<br />
-  <span v-for="student in this.course.students"> {{ student.name }}<br /></span> -->
+  Students:<br />
+  <span v-for="student in this.course.students"> {{ student.name }}<br /></span>
 </template>
 
 <script>
