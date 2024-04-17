@@ -7,10 +7,10 @@
 <a href="{% url 'manager:course_list' %}">Courses</a>
 <a href="{% url 'manager:course_create' %}">Add Course</a><br>
 
-{% comment %} <form method="post">{% csrf_token %}
+ {% comment %} <form method="post">{% csrf_token %}
   {{ form.as_p }}
   <input type = "submit" value = "Save">
-</form> {% endcomment %}
+</form>  {% endcomment %}
 
 <div id="app">
   <app></app>
@@ -19,16 +19,15 @@
 {% endblock content %}
 {% block js %}
   {{ block.super }}
-  {% comment %}
+
   <script>
-    var ext_csrf_token = '{{ csrf_token }}'
+ var ext_csrf_token = '{{ csrf_token }}'
     var ext_django_form = `{{ form.as_p | safe }}`
-    var ext_csrf_token = '{{ csrf_token }}'
     var ext_form = `{{ form.as_p | safe}}`
-    var ext_movie_dict = {{ movie_dict | safe }}
-    var ext_actor_list = {{ actor_list | safe }}
-    var ext_update_bis_url = '{% url 'movies:movie_update_bis' object.id %}'
-  </script> {% endcomment %}
+    var ext_course_dict = {{ course_dict | safe }}
+    var ext_student_list = {{ student_list | safe }}
+    {% comment %} var ext_update_bis_url = '{% url 'movies:movie_update_bis' object.id %}' {% endcomment %}
+  </script> 
 
   {% vite_hmr_client %}
   {% vite_asset 'src/apps/course_edit/course_edit.js' %}

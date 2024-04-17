@@ -65,6 +65,15 @@ class CourseUpdateView(UpdateView):
     def get_success_url(self):
         return reverse_lazy("manager:course_detail", args=[self.object.id])
 
+class CourseDetailJsView(View):
+    def get(self, request, *args, **kwargs):
+        course = get_object_or_404(Course, pk=self.kwargs["pk"])
+        course_js = model_to_dict(course)
+        course_js["students"] = []
+        for student in course.actors.values():
+            course_js["students"].append(student)
+        return JsonResponse({"course": course_js})
+
 ### Student
 class StudentListView(LoginRequiredMixin, ListView):
     model = Student
