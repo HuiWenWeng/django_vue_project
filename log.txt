@@ -1,5 +1,7 @@
 04/09 - Hui Wen: Project setup started
+
 04/10 - Hui Wen: Project setup finished, created branch
+04/10 - Calvin: Project setup, setup environments, downloaded requirements
 
 04/11 - Hui Wen: Authentication completed, begin writing model
 04/11 - Calvin: Database design, created branch, begin connecting Vue to Django
@@ -8,10 +10,14 @@
 04/12 - Calvin: Worked on displaying form from Vue
 
 04/14 - Hui Wen: Updated forms, updated urls on each page for easy navigation (not pushed)
+04/14 - Calvin: Added urls for course edit, delete, and list
 
 04/15 - Hui Wen: Finished details, delete, and update views on the Django side, fixed model errors, successfully connected Vue to Django in student edit working on student_edit from Vue
+04/15 - Calvin: Created views for details, delete, and update for course
 
 04/16 - Hui Wen: Setup Vue student and course detail pages, working on Vue GET/POST forms
         (At night): Finished student POST, working on student GET, create view no longer working
+4/16 - Calvin: Created course_detailbis view and template, working on vue GET/POST forms
 
 04/17 - Hui Wen: Debugging on student GET, working now
+04/17 - Calvin: debugging on course GET/POST forms (course edit and course detail)
