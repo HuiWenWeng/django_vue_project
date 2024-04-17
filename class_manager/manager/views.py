@@ -117,13 +117,26 @@ class StudentUpdateView(UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         student_dico = model_to_dict(self.object)
-        context["student_list"] = student_dico
-        context["student_name"] = student_dico["name"]
-        context["student_osis"] = student_dico["osis"]
-        context["student_grade"] = student_dico["grade"]
-        context["student_gpa"] = student_dico["gpa"]
-        print("context", context)
+        context["student_dico"] = student_dico
+        # print("context", context)
         return context
-    
+
+   # comment the following line to show the error about not having an
+   # success_url
     def get_success_url(self):
         return reverse_lazy("manager:student_detail", args=[self.object.id])
+        # you can also use it this way with kwargs, just to let you know
+        # but here we have only one argument, so no mistake can be done
+        # return reverse_lazy("movies:actor_detail",
+        #                    kwargs={'pk':self.object.id})
+    
+class StudentUpdatebisView(View):
+   def post(self, request, *args, **kwargs):
+       student = get_object_or_404(Student, pk=self.kwargs["pk"])
+       # Create a form instance with POST data
+       form = StudentForm(request.POST, instance=student)
+       if form.is_valid():
+           form.save()
+           return JsonResponse({"success": True})
+       else:
+           return JsonResponse({"success": False, "errors": form.errors})

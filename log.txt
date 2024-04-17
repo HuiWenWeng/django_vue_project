@@ -12,3 +12,4 @@
 04/15 - Hui Wen: Finished details, delete, and update views on the Django side, fixed model errors, successfully connected Vue to Django in student edit working on student_edit from Vue
 
 04/16 - Hui Wen: Setup Vue student and course detail pages, working on Vue GET/POST forms
+        (At night): Finished StudentUpdatebisView, working on StudentDetailbisView, create view no longer working
