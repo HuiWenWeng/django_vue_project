@@ -10,7 +10,7 @@
 <a href="{% url 'manager:student_update' object.id %}">Update Student</a><br />
 
     <div id="app">
-        <app>This is the student detail page</app>
+        <app></app>
     </div>
 
     <h1>{{ object.name }}</h1>
@@ -22,10 +22,6 @@
 {% block js %}
 {{ block.super }}
     <script>
-        var ext_student_list,
-        var ext_student_osis,
-        var ext_student_grade,
-        var ext_student_gpa,
     </script>
 {% vite_asset 'src/apps/student_detail/student_detail.js' %}
 {% endblock js %}

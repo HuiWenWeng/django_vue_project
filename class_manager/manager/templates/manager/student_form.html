@@ -19,6 +19,10 @@
     <input type="submit" value="Save">
 </form> {% endcomment %}
 
+{% comment %} <div v-if="form_updated">
+	{{ form_updated }}
+</div> {% endcomment %}
+
 {% endblock content %}
 
 {% block js %}
@@ -26,11 +30,8 @@
     <script>
         var ext_csrf_token = '{{ csrf_token }}'
         var ext_django_form = `{{ form.as_p | safe }}`
-        var ext_student_list {{ student_list | safe }} 
-        var ext_student_name {{ student_name | safe }} 
-        var ext_student_osis {{ student_osis | safe }} 
-        var ext_student_grade {{ student_grade | safe }} 
-        var ext_student_gpa {{ student_gpa | safe }} 
+        var ext_student_dico = {{ student_dico | safe }} 
+        var ext_update_bis_url = '{% url 'manager:student_update_bis' object.id %}'
     </script>
     {% vite_hmr_client %}
     {% vite_asset 'src/apps/student_edit/student_edit.js' %} 
