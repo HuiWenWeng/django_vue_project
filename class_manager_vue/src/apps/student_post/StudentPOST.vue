@@ -129,9 +129,9 @@
                                     this.form_error=["Update failed - An error occurred but do not have more information about it"]
                             }
                         }
-            } else {
-                        this.form_error=["Update failed - It has been an error on the form request"]
-            }
+                } else {
+                            this.form_error=["Update failed - It has been an error on the form request"]
+                }
             }
         }, 
     }

@@ -16,7 +16,7 @@
         var ext_student_id = {{ student_id }}
         var ext_student_list_url = '{% url 'manager:student_list' %}'
         var ext_student_detail_js_url = '{% url 'manager:student_detail_js' student_id %}'
-        var ext_student_update_url = '{% url 'manager:student_update_bis' student_id %}'
+        var ext_student_update_url = '{% url 'manager:student_update' student_id %}'
         var ext_student_delete_url = '{% url 'manager:student_delete' student_id %}'
     </script>
     {% vite_hmr_client %}
