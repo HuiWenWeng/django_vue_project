@@ -95,16 +95,16 @@ class StudentCreateView(CreateView):
             'Student "{student_name}" has been created'.format(
                 student_name=self.object.name))
         return response
-    
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     student_dico = model_to_dict(self.object)
-    #     context["student_dico"] = student_dico
-    #     # print("context", context)
-    #     return context
 
     def get_success_url(self):
     	return reverse_lazy("manager:student_detail", args=[self.object.id])
+ 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        student_dico = list(Student.objects.all().values())
+        context["student_dico"] = student_dico
+        # print("context", context)
+        return context
  
 class StudentDeleteView(DeleteView):
     model = Student
