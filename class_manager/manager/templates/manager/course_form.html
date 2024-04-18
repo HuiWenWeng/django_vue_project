@@ -1,5 +1,7 @@
 {% extends "base.html" %}
+
 {% load django_vite %}
+
 {% block content %}
 
 <a href="{% url 'manager:student_list' %}">Students</a>
@@ -7,28 +9,30 @@
 <a href="{% url 'manager:course_list' %}">Courses</a>
 <a href="{% url 'manager:course_create' %}">Add Course</a><br>
 
- {% comment %} <form method="post">{% csrf_token %}
-  {{ form.as_p }}
-  <input type = "submit" value = "Save">
-</form>  {% endcomment %}
-
+<br />
 <div id="app">
-  <app></app>
+    <app></app>
 </div>
 
+{% comment %} <form method="post">{% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Save">
+</form> {% endcomment %}
+
+{% comment %} <div v-if="form_updated">
+	{{ form_updated }}
+</div> {% endcomment %}
+
 {% endblock content %}
+
 {% block js %}
-  {{ block.super }}
-
-  <script>
-    var ext_csrf_token = '{{ csrf_token }}'
-    {% comment %} var ext_django_form = `{{ form.as_p | safe }}` {% endcomment %}
-    var ext_form = `{{ form.as_p | safe}}`
-    var ext_course_dict = {{ course_dict | safe }}
-    var ext_student_list = {{ student_list | safe }}
-    {% comment %} var ext_update_bis_url = '{% url 'movies:movie_update_bis' object.id %}' {% endcomment %}
-  </script> 
-
-  {% vite_hmr_client %}
-  {% vite_asset 'src/apps/course_edit/course_edit.js' %}
+    {{ block.super }} 
+    <script>
+        var ext_csrf_token = '{{ csrf_token }}'
+        var ext_django_form = `{{ form.as_p | safe }}`
+        var ext_course_dico = {{ course_dico | safe }} 
+        var ext_student_list = {{ student_list | safe }}
+    </script>
+    {% vite_hmr_client %}
+    {% vite_asset 'src/apps/course_edit/course_edit.js' %} 
 {% endblock js %}
