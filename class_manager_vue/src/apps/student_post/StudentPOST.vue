@@ -20,19 +20,19 @@
             <input type="hidden" name="csrfmiddlewaretoken" v-bind:value="csrf_token">
             <p>
                 <label for="id_name">Name:</label><br>
-                <input type="text" name="name" maxlength="100" required="" id="id_name">
+                <input type="text" name="name" v-model="student_name" maxlength="100" required="" id="id_name">
             </p>
             <p>
                 <label for="id_osis">OSIS:</label><br>
-                <input type="number" name="osis" maxlength="9" required="" id="id_osis">
+                <input type="number" name="osis" v-model="student_osis" maxlength="9" required="" id="id_osis">
             </p>
             <p>
                 <label for="id_grade">Grade:</label><br>
-                <input type="number" name="grade" required="" id="id_grade">
+                <input type="number" name="grade" v-model="student_grade" required="" id="id_grade">
             </p>
             <p>
                 <label for="id_gpa">GPA:</label><br>
-                <input type="number" name="gpa" required="" id="id_gpa">
+                <input type="number" name="gpa" v-model="student_gpa" required="" id="id_gpa">
             </p>
             <!-- <button type="submit" class="btn btn-primary" @click.prevent="submit_form" :disabled="submitting_form">Submit</button> -->
             <button type="submit" class="btn btn-primary" @click.prevent="submit_form_fetch" :disabled="submitting_form">Submit</button>
@@ -89,10 +89,11 @@
                 this.form_updated = ""
                 let formData = new FormData();
                 let form_data = {
-                    'name': this.student_dico.name,
-                    'osis': this.student_dico.osis,
-                    'grade': this.student_dico.grade,
-                    'gpa': this.student_dico.gpa,
+                    'csrfmiddlewaretoken': this.csrf_token,
+                    'name': this.student_name,
+                    'osis': this.student_osis,
+                    'grade': this.student_grade,
+                    'gpa': this.student_gpa,
                 }
                 for (var key in form_data) {
                         formData.append(key, form_data[key])
@@ -136,3 +137,11 @@
         },
     }
 </script>
+
+<!-- def get_context_data(self, **kwargs): 
+    context = super().get_context_data(**kwargs) 
+    tag_list = list(Tag.objects.all().values()) 
+    context["tag_list"] = tag_list 
+    context["tag_list"] = json.dumps(tag_list) 
+    print("context", context) 
+    return context -->

@@ -20,4 +20,5 @@
 4/16 - Calvin: Created course_detailbis view and template, working on vue GET/POST forms
 
 04/17 - Hui Wen: Debugging on student GET, working now
+        (At night): Debugged all views and requests on student
 04/17 - Calvin: debugging on course GET/POST forms (course edit and course detail)
