@@ -1,6 +1,6 @@
 import 'vite/modulepreload-polyfill';
 
 import { createApp  } from 'vue';
-import App from './courseEdit.vue'
+import App from './CoursePOST.vue'
 
 createApp(App).mount("#app")

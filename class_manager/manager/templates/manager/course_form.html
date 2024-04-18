@@ -22,13 +22,10 @@
 
   <script>
     var ext_csrf_token = '{{ csrf_token }}'
-    {% comment %} var ext_django_form = `{{ form.as_p | safe }}` {% endcomment %}
-    var ext_form = `{{ form.as_p | safe}}`
-    var ext_course_dict = {{ course_dict | safe }}
-    var ext_student_list = {{ student_list | safe }}
-    {% comment %} var ext_update_bis_url = '{% url 'movies:movie_update_bis' object.id %}' {% endcomment %}
+    var ext_django_form = `{{ form.as_p | safe }}`
+    var ext_course_dico = {{ course_dico | safe }} 
   </script> 
 
   {% vite_hmr_client %}
-  {% vite_asset 'src/apps/course_edit/course_edit.js' %}
+  {% vite_asset 'src/apps/course_post/course_post.js' %}
 {% endblock js %}
