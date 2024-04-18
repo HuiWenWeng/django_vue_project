@@ -1,21 +1,38 @@
 <template>
-    <div>
-        This is the course form coming from django, displayed in vue. <br><br>
+  <div>This is the course form coming from django, displayed in vue. <br /><br /></div>
+  <div>
+    With fetch this time
+    <div v-if="form_error">
+        <ul>
+            <li v-for="(error, index) in form_error">
+                {{error}}
+            </li>
+        </ul>
     </div>
-    <div>
+    <div v-if="form_updated">
+        {{ form_updated }}
+    </div>
+
     <form method="post" class="form">
       <input type="hidden" name="csrfmiddlewaretoken" v-bind:value="csrf_token" />
       <p>
         <label for="id_name">Name:</label>
-        <br>
+        <br />
         <input type="text" name="name" value="Course" maxlength="100" required="" id="id_name" />
-        <br><br>
+        <br /><br />
         <label for="id_teacher">Teacher:</label>
-        <br>
-        <input type="text" name="teacher" value="Teacher" maxlength="100" required="" id="id_teacher" />
-        <br><br>
-        <label for="id_name">Grade:</label>
-        <br>
+        <br />
+        <input
+          type="text"
+          name="teacher"
+          value="Teacher"
+          maxlength="100"
+          required=""
+          id="id_teacher"
+        />
+        <br /><br />
+        <label for="id_grade">Grade:</label>
+        <br />
         <input type="text" name="grade" value="100" maxlength="100" required="" id="id_grade" />
       </p>
       <!-- <p>
@@ -43,68 +60,146 @@
           >
         </multiselect>
         </p> -->
-    </form> 
+    </form>
 
     <button
-        type="submit"
-        class="btn btn-primary"
-        @click.prevent="submit_form"
-        :disabled="submitting_form"
-      >
-        Submit
-      </button>
-    </div>
-
+      type="submit"
+      class="btn btn-primary"
+      @click.prevent="submit_form"
+      :disabled="submitting_form"
+    >
+      Submit
+    </button>
+  </div>
 </template>
-    
+
 <script>
 import Multiselect from 'vue-multiselect'
-    export default {
-        name: 'App', 
-        components:{
-            Multiselect
-        },
-        data: function() {
-            return {
-                // submitting_form: false,
-                form_error: [],
-                form_updated: "",
-                // csrf_token: ext_csrf_token,
-                // student_list: ext_student_list,
-                // course_dico: ext_course_dict,
-                // student_list: ext_student_name,
-                // student_osis: ext_student_osis,
-                // student_grade: ext_student_grade,
-                // student_gpa: ext_student_gpa,
-                // student_update_url: ext_student_update_url
-            }
-        },
-        methods: {
-            submit_form() {
-            let formData = new FormData()
-            if (this.submitting_form === true) {
-            return
-            }
-            this.submitting_form = true
-            var form = document.createElement('form')
-            form.setAttribute('method', 'post')
-            let form_data = {
-                csrfmiddlewaretoken: this.csrf_token,
-                name: this.course_dico.name,
-                teacher: this.course_dico.teacher,
-                grade: this.movie_dico.grade,
-                
-            }
-            for (var key in form_data) {
-                var html_field = document.createElement('input')
-                html_field.setAttribute('type', 'hidden')
-                html_field.setAttribute('name', key)
-                html_field.setAttribute('value', form_data[key])
-                form.appendChild(html_field)
-                formData.append(key, form_data[key])
-            }
-        }, 
-        }
+export default {
+  name: 'App',
+  components: {
+    Multiselect
+  },
+  data: function () {
+    return {
+      submitting_form: false,
+      form_error: [],
+      form_updated: '',
+      csrf_token: window.ext_csrf_token,
+      form: window.ext_django_form,
+      course_dico: window.ext_course_dict,
+      update_bis_url: window.ext_update_bis_url,
+      // student_list: window.ext_course_dict.students,
+      // student_list_source: window.ext_student_list,
+      // course_dico: window.ext_course_dico,
+      // course_name: window.ext_course_dico.name,
+      // course_teacher: window.ext_course_dico.teacher,
+      // course_grade: window.ext_course_dico.grade,
+
     }
+  },
+  methods: {
+    submit_form() {
+      if (!this.course_dico) {
+    console.error('Course data is not available.');
+    return;
+  }
+      let formData = new FormData()
+      if (this.submitting_form === true) {
+        console.error('Form is already submitting.');
+        return
+      }
+      this.submitting_form = true
+      var form = document.createElement('form')
+      form.setAttribute('method', 'post')
+      let form_data = {
+        'csrfmiddlewaretoken': this.csrf_token,
+        'name': this.course_dico.name,
+        'teacher': this.course_dico.teacher,
+        'grade': this.course_dico.grade
+      }
+      console.log('student_list', this.student_list)
+      console.log('form_data', form_data)
+      for (var key in form_data) {
+        var html_field = document.createElement('input')
+        html_field.setAttribute('type', 'hidden')
+        html_field.setAttribute('name', key)
+        html_field.setAttribute('value', form_data[key])
+        form.appendChild(html_field)
+        formData.append(key, form_data[key])
+      }
+      var student_field = document.createElement('select')
+      student_field.setAttribute('name', 'students')
+      student_field.setAttribute('id', 'id_students')
+      student_field.setAttribute('multiple', '')
+      for (var student of this.student_list) {
+        console.log('student', student)
+        var option_field = document.createElement('option')
+        option_field.setAttribute('value', student.id)
+        option_field.setAttribute('selected', '')
+        student_field.appendChild(option_field)
+      }
+      form.appendChild(student_field)
+      document.body.appendChild(form)
+      form.submit()
+      fetch(this.update_bis_url, {
+        method: 'post',
+        body: formData,
+        headers: { 'X-CSRFToken': this.csrf_token },
+        credentials: 'same-origin'
+      })
+    },
+    submit_form_fetch() {
+      this.form_error = []
+      this.form_updated = ''
+      let formData = new FormData()
+      let form_data = {
+        name: this.course_dico.name,
+        teacher: this.course_dico.teacher,
+        grade: this.course_dico.grade,
+      }
+      for (var key in form_data) {
+        formData.append(key, form_data[key])
+      }
+      fetch(this.update_bis_url, {
+        method: 'post',
+        body: formData,
+        headers: { 'X-CSRFToken': this.csrf_token },
+        credentials: 'same-origin'
+      })
+        .then(function (response) {
+          console.log('response', response)
+          return response.json()
+        })
+        .then(this.handleResponse)
+        .catch((error) => {
+          console.log('error', String(error))
+          this.form_error = ['error']
+        })
+    },
+    handleResponse(response) {
+      console.log('json response', response)
+      if ('success' in response) {
+        if (response['success'] == true) {
+          this.form_updated = 'course has been updated'
+        } else {
+          if ('errors' in response) {
+            for (const [key, value] of Object.entries(response['errors'])) {
+              for (const error of value) {
+                this.form_error.push(`${key}: ${error}`)
+              }
+            }
+          } else {
+            this.form_error = [
+              'Update failed - An error occurred but do not have more information about it'
+            ]
+          }
+        }
+      } else {
+        this.form_error = ['Update failed - It has been an error on the form request']
+      }
+    }
+  }
+}
 </script>
 <style src="vue-multiselect/dist/vue-multiselect.css"></style>

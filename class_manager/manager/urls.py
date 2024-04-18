@@ -17,7 +17,10 @@ urlpatterns = [
     path("course/update/<int:pk>", views.CourseUpdateView.as_view(), name="course_update"),
     path("student/update/<int:pk>", views.StudentUpdateView.as_view(), name="student_update"),
     path("student/update_bis/<int:pk>", views.StudentUpdatebisView.as_view(), name="student_update_bis",),
+    path("course/update_bis/<int:pk>", views.CourseUpdatebisView.as_view(), name="course_update_bis"),
     path("student/bis/<int:pk>", views.StudentDetailbisView.as_view(), name="student_detail_bis"),
+    path("course/bis/<int:pk>", views.CourseDetailbisView.as_view(), name="course_update_bis"),
     path("student/js/<int:pk>", views.StudentDetailJsView.as_view(), name="student_detail_js"),
+    path("course/js/<int:pk>", views.CourseDetailJsView.as_view(), name="course_detail_js")
     
 ]

@@ -52,18 +52,34 @@ class CourseDeleteView(DeleteView):
         return response
 
 class CourseUpdateView(UpdateView):
-    model = Course
-    form_class = CourseForm
-    
-    def form_valid(self, form):
-        response = super().form_valid(form)
-        messages.add_message(
-            self.request, messages.SUCCESS,
-            'Course "{course_name}" has been updated'.format(
-                course_name=self.object.name))
-        return response
-    
-    def get_success_url(self):
+   model = Course
+   form_class = CourseForm
+
+   def form_valid(self, form):
+       response = super().form_valid(form)
+       messages.add_message(
+           self.request,
+           messages.SUCCESS,
+           'Course "{course_name}" has been updated'.format(
+               course_name=self.object.name
+           ),
+       )
+       return response
+
+   def get_context_data(self, **kwargs):
+       context = super().get_context_data(**kwargs)
+       course_dico = model_to_dict(self.object)
+       students = course_dico["students"]
+       course_student_list = []
+       for student in students:
+           course_student_list.append({"id": student.id, "name": student.name})
+       course_dico["students"] = course_student_list
+       student_list = list(Student.objects.all().values())
+       context["course_dict"] = course_dico
+       context["student_list"] = student_list
+       print("context", context)
+       return context
+   def get_success_url(self):
         return reverse_lazy("manager:course_detail", args=[self.object.id])
 
 class CourseDetailJsView(View):
@@ -71,9 +87,32 @@ class CourseDetailJsView(View):
         course = get_object_or_404(Course, pk=self.kwargs["pk"])
         course_js = model_to_dict(course)
         course_js["students"] = []
-        for student in course.actors.values():
+        for student in course.students.values():
             course_js["students"].append(student)
         return JsonResponse({"course": course_js})
+
+class CourseUpdatebisView(View):
+   def post(self, request, *args, **kwargs):
+       course = get_object_or_404(Student, pk=self.kwargs["pk"])
+       # Create a form instance with POST data
+       form = CourseForm(request.POST, instance=course)
+       if form.is_valid():
+           form.save()
+           return JsonResponse({"success": True})
+       else:
+           return JsonResponse({"success": False, "errors": form.errors})
+
+class CourseDetailbisView(TemplateView):
+    template_name = "manager/course_detailbis.html"
+    
+    def get(self, request, *args, **kwargs):
+        course = get_object_or_404(Course, pk=self.kwargs["pk"])
+        return super().get(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['course_id'] = self.kwargs["pk"]
+        return context
 
 ### Student
 class StudentListView(LoginRequiredMixin, ListView):

@@ -134,7 +134,7 @@
                             this.form_error=["Update failed - It has been an error on the form request"]
                 }
             }
-        }, 
+        },
     }
 </script>
 

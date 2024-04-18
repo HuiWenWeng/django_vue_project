@@ -21,8 +21,8 @@
   {{ block.super }}
 
   <script>
- var ext_csrf_token = '{{ csrf_token }}'
-    var ext_django_form = `{{ form.as_p | safe }}`
+    var ext_csrf_token = '{{ csrf_token }}'
+    {% comment %} var ext_django_form = `{{ form.as_p | safe }}` {% endcomment %}
     var ext_form = `{{ form.as_p | safe}}`
     var ext_course_dict = {{ course_dict | safe }}
     var ext_student_list = {{ student_list | safe }}
