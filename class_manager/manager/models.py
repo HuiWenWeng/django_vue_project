@@ -4,9 +4,9 @@ from django.db import models
 
 class Student(models.Model):
     name = models.CharField(max_length=50, unique=True)
-    osis = models.IntegerField(unique=True)
-    grade = models.SmallIntegerField(unique=False)
-    gpa = models.FloatField(max_length=10, unique=False)
+    osis = models.IntegerField(unique=True, default='0000000')
+    grade = models.SmallIntegerField(unique=False, default='9')
+    gpa = models.FloatField(max_length=10, unique=False, default='100')
 
     class Meta:
         ordering = ['name']

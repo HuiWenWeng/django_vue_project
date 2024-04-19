@@ -72,7 +72,7 @@ class CourseUpdateView(UpdateView):
         students = course_dico["students"]
         course_student_list = []
         for student in students:
-            course_student_list.append({"id": student.id, "name": student.name, "osis": student.osis, "grade": student.grade, "gpa": student.gpa})
+            course_student_list.append({"id": student.id, "name": student.name})
             course_dico["students"] = course_student_list
             student_list = list(Student.objects.all().values())
             context["course_dico"] = course_dico
