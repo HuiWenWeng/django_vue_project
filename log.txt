@@ -22,3 +22,5 @@
 04/17 - Hui Wen: Debugging on student GET, working now
         (At night): Debugged all views and requests on student
 04/17 - Calvin: debugging on course GET/POST forms (course edit and course detail)
+
+04/18 - Hui Wen: Course GET completed, course POST completed

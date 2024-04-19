@@ -1,8 +1,7 @@
 
 <template>
-
+  
   <div>
-    This is displaying from vue <br>
     <a :href="this.course_list_url">Course List</a><br />
     <a :href="this.course_update_url">Update course</a><br />
     <a :href="this.course_delete_url">Delete course</a><br />
@@ -21,14 +20,14 @@ export default {
   components: {},
   data: function () {
     return {
-        course_error: [],
-        course_id: window.ext_course_id,
-        course_detail_js_url: window.ext_course_detail_js_url,
-        course_list_url: window.ext_course_list_url,
-        course_update_url: window.ext_course_update_url,
-        course_delete_url: window.ext_course_delete_url,
-        course: {} 
-      }
+      course_error: [],
+      course_id: window.ext_course_id,
+      course_detail_js_url: window.ext_course_detail_js_url,
+      course_list_url: window.ext_course_list_url,
+      course_update_url: window.ext_course_update_url,
+      course_delete_url: window.ext_course_delete_url,
+      course: {} 
+    }
   },
   methods: {
     course_error: [],
@@ -41,9 +40,7 @@ export default {
             console.log('response', response)
             return response.json()
         })
-        .then((course_json) => {
-          this.assign_course(course_json)
-        })
+        .then(this.assign_course)
         .catch((error) => {
             console.log('error', error)
             this.course_error = ['error when loading course information']

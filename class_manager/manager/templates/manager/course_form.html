@@ -14,15 +14,6 @@
     <app></app>
 </div>
 
-{% comment %} <form method="post">{% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Save">
-</form> {% endcomment %}
-
-{% comment %} <div v-if="form_updated">
-	{{ form_updated }}
-</div> {% endcomment %}
-
 {% endblock content %}
 
 {% block js %}
@@ -32,7 +23,8 @@
         var ext_django_form = `{{ form.as_p | safe }}`
         var ext_course_dico = {{ course_dico | safe }} 
         var ext_student_list = {{ student_list | safe }}
+        var ext_update_bis_url = "{% url 'manager:course_update_bis' course.id %}"
     </script>
     {% vite_hmr_client %}
-    {% vite_asset 'src/apps/course_edit/course_edit.js' %} 
+    {% vite_asset 'src/apps/course_post/course_post.js' %} 
 {% endblock js %}
