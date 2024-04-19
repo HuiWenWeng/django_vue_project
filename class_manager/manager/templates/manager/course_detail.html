@@ -19,10 +19,3 @@
     {% endfor %}
     Teacher: {{object.teacher}}<br />
 {% endblock content %}
-{% block js %}
-{{ block.super }}
-    <script>
-        // where the variables will go
-    </script>
-{% vite_asset 'src/apps/movie_show/movie_show.js' %}
-{% endblock js %}

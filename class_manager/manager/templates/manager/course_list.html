@@ -10,7 +10,7 @@
 This is the course list page <br>
 
 {% for course in object_list %}
-    <a href="{% url 'manager:course_detail' course.id %}">{{ course.name }}</a><br>
+<a href="{% url 'manager:course_detail_bis' course.id %}">{{ course.name }}</a><br/>
 {% endfor %}
 
 {% endblock content %}

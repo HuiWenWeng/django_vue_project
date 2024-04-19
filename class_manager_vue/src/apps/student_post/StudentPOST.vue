@@ -134,14 +134,6 @@
                             this.form_error=["Update failed - It has been an error on the form request"]
                 }
             }
-        },
+        }, 
     }
 </script>
-
-<!-- def get_context_data(self, **kwargs): 
-    context = super().get_context_data(**kwargs) 
-    tag_list = list(Tag.objects.all().values()) 
-    context["tag_list"] = tag_list 
-    context["tag_list"] = json.dumps(tag_list) 
-    print("context", context) 
-    return context -->

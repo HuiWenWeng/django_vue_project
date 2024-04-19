@@ -16,9 +16,9 @@
         var ext_course_id = {{ course_id }}
         var ext_course_list_url = '{% url 'manager:course_list' %}'
         var ext_course_detail_js_url = '{% url 'manager:course_detail_js' course_id %}'
-        var ext_course_update_url = '{% url 'manager:course_update_bis' course_id %}'
+        var ext_course_update_url = '{% url 'manager:course_update' course_id %}'
         var ext_course_delete_url = '{% url 'manager:course_delete' course_id %}'
     </script>
     {% vite_hmr_client %}
-    {% vite_asset 'src/apps/course_detail/course_detail.js' %} 
+    {% vite_asset 'src/apps/course_get/course_get.js' %} 
 {% endblock js %}
