@@ -87,7 +87,7 @@ class CourseUpdatebisView(View):
    def post(self, request, *args, **kwargs):
         course = get_object_or_404(Course, pk=self.kwargs["pk"])
         # Create a form instance with POST data
-        form = StudentForm(request.POST, instance=course)
+        form = CourseForm(request.POST, instance=course)
         if form.is_valid():
             form.save()
             return JsonResponse({"success": True})
