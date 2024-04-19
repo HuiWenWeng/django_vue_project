@@ -40,7 +40,9 @@ export default {
             console.log('response', response)
             return response.json()
         })
-        .then(this.assign_course)
+        .then((course_json) => {
+          this.assign_course(course_json)
+        })
         .catch((error) => {
             console.log('error', error)
             this.course_error = ['error when loading course information']

@@ -104,12 +104,11 @@
           'name': this.course_name,
           'teacher': this.course_teacher,
           'grade': this.course_grade,
-          'students': this.student_list
         }
         for (var key in form_data) {
           formData.append(key, form_data[key])
         }
-        // this.student_list.map(dic => formData.append('students', dic.id))
+        this.student_list.map(dic => formData.append('students', dic.id))
         console.log("formData: ", formData)
         fetch(this.update_bis_url, {
           method: 'post',
