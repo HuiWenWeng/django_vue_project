@@ -1,9 +1,4 @@
 <template>
-    <div>
-        This is the form coming from django, displayed in vue. <br><br>
-    </div>
-
-    With fetch this time
     <div v-if="form_error">
         <ul>
             <li v-for="(error, index) in form_error">

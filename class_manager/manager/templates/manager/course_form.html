@@ -23,7 +23,11 @@
         var ext_django_form = `{{ form.as_p | safe }}`
         var ext_course_dico = {{ course_dico | safe }} 
         var ext_student_list = {{ student_list | safe }}
-        var ext_update_bis_url = "{% url 'manager:course_update_bis' course.id %}"
+        {% if request.resolver_match.url_name == 'course_create' %}
+            var ext_update_bis_url = null;
+        {% else %}
+            var ext_update_bis_url = "{% url 'manager:course_update_bis' course.id %}";
+        {% endif %}
     </script>
     {% vite_hmr_client %}
     {% vite_asset 'src/apps/course_post/course_post.js' %} 

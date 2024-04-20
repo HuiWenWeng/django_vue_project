@@ -24,3 +24,7 @@
 04/17 - Calvin: debugging on course GET/POST forms (course edit and course detail)
 
 04/18 - Hui Wen: Course GET completed, course POST completed
+
+04/19 - Hui Wen: Debugging course update form
+
+04/20 - Hui Wen: Finished reactive multiselect, student create, course create bugging

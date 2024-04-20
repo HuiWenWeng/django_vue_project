@@ -5,7 +5,7 @@
 {% block content %}
 
 <a href="{% url 'manager:student_list' %}">Students</a>
-<a href="{% url 'manager:student_create' %}">Add Student</a><br>
+<a href="{% url 'manager:student_create' %}"id="student_create">Add Student</a><br>
 <a href="{% url 'manager:course_list' %}">Courses</a>
 <a href="{% url 'manager:course_create' %}">Add Course</a><br>
 
@@ -22,7 +22,15 @@
         var ext_csrf_token = '{{ csrf_token }}'
         var ext_django_form = `{{ form.as_p | safe }}`
         var ext_student_dico = {{ student_dico | safe }} 
-        var ext_update_bis_url = "{% url 'manager:student_update_bis' student.id %}"
+        var student_create = document.getElementById("student_create");
+
+        {% if request.resolver_match.url_name == 'student_create' %}
+            // Only include ext_update_bis_url if not on the "Add Student" page
+            var ext_update_bis_url = null;
+        {% else %}
+            var ext_update_bis_url = "{% url 'manager:student_update_bis' student.id %}";
+        {% endif %}
+        
     </script>
     {% vite_hmr_client %}
     {% vite_asset 'src/apps/student_post/student_post.js' %} 
